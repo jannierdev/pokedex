@@ -1,0 +1,15 @@
+@if (loading) {
+  <app-loading message="Cargando Pokédex..." />
+} @else if (hasError) {
+  <app-error-state
+    title="No se pudo cargar la Pokédex"
+    message="Problema al consultar la PokeAPI"
+    (retry)="loadPokemons()"
+  />
+} @else {
+  <div class="pokedex-page">
+    <div class="pokedex-grid">
+      <app-card *ngFor="let pokemon of pokemons" [pokemon]="pokemon"></app-card>
+    </div>
+  </div>
+}

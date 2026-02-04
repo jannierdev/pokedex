@@ -1,0 +1,26 @@
+.pokedex-page {
+  min-height: 100vh;
+  width: 100%;
+  padding: 2rem;
+
+  display: flex;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  .pokedex-grid {
+    width: 100%;
+    // max-width: 1200px;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pokedex-page {
+    padding: 1rem;
+  }
+}

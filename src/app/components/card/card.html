@@ -1,0 +1,15 @@
+<div
+  class="pokemon-card"
+  [style.background]="'linear-gradient(#000000,' + pokemon.color + ')'"
+>
+  <div class="image">
+    <img [src]="pokemon.image" [alt]="pokemon.name" />
+  </div>
+  <span class="title">{{ pokemon.name | titlecase }}</span>
+  <span class="description">
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique aliquam
+    illo impedit excepturi neque, consequuntur ullam odio dignissimos
+    necessitatibus non sit quidem! Ex corrupti repudiandae eaque! Officia cum
+    maiores atque?
+  </span>
+</div>
