@@ -8,6 +8,9 @@
   />
 } @else {
   <div class="pokedex-page">
+    <div class="pokedex-title">
+      <img src="logo.png" alt="">
+    </div>
     <div class="pokedex-grid">
       <app-card *ngFor="let pokemon of pokemons" [pokemon]="pokemon"></app-card>
     </div>

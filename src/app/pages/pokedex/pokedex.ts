@@ -29,6 +29,8 @@ export class Pokedex {
 
     this._pokemonService.getPokemons().subscribe({
       next: (data) => {
+        console.log(data);
+        
         this.pokemons = data;
         this.loading = false;
       },
