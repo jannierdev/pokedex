@@ -1,0 +1,390 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: backdropFadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: #1f2937;
+  width: 90%;
+  max-width: 750px;
+  border-radius: 16px;
+  padding: 0;
+  position: relative;
+  animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.modal-header {
+  position: relative;
+  padding: 2rem 2rem 1rem;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.modal-image-section {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.35));
+  }
+}
+
+.modal-title {
+  margin-top: 90px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #f9fafb;
+  letter-spacing: 0.5px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: #d1d5db;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+    color: #f9fafb;
+  }
+}
+
+.modal-body {
+  padding: 2rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+// Types Section
+.types-section {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.type-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+// Description
+.description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #d1d5db;
+  margin: 0 0 1.5rem 0;
+  font-weight: 400;
+}
+
+// Relations Grid
+.relations-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.relation-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.relation-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #9ca3af;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.relation-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.relation-item {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 16px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+
+// Stats Section
+.stats-section {
+  margin-top: 1rem;
+}
+
+.stats-title {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #e5e7eb;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0;
+  
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background: linear-gradient(180deg, #f97316, #f59e0b);
+    border-radius: 2px;
+  }
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-name {
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #f3f4f6;
+}
+
+.stat-bar {
+  height: 6px;
+  background: linear-gradient(90deg, #374151, #4b5563);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.stat-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f97316, #f59e0b);
+  border-radius: 3px;
+  transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 8px rgba(249, 115, 22, 0.4);
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Responsive Styles
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    max-width: 100%;
+    max-height: 95vh;
+  }
+
+  .modal-image-section {
+    top: -40px;
+    width: 160px;
+    height: 160px;
+  }
+
+  .modal-header {
+    padding: 1.5rem 1.5rem 0.75rem;
+  }
+
+  .modal-title {
+    margin-top: 60px;
+    font-size: 1.5rem;
+  }
+
+  .close-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  .types-section {
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+    margin: 0 0 1rem 0;
+  }
+
+  .relations-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .stat-name {
+    font-size: 0.75rem;
+  }
+
+  .stat-value {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    border-radius: 12px;
+  }
+
+  .modal-image-section {
+    top: -30px;
+    width: 140px;
+    height: 140px;
+  }
+
+  .modal-header {
+    padding: 1.25rem 1rem 0.5rem;
+  }
+
+  .modal-title {
+    margin-top: 50px;
+    font-size: 1.3rem;
+  }
+
+  .close-btn {
+    top: 1rem;
+    right: 1rem;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .type-badge {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .description {
+    font-size: 0.85rem;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .relation-title {
+    font-size: 0.75rem;
+  }
+
+  .relation-item {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.7rem;
+  }
+
+  .stats-title {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .stat-name {
+    font-size: 0.7rem;
+  }
+
+  .stat-value {
+    font-size: 0.95rem;
+  }
+}

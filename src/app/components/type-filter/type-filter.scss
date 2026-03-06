@@ -1,0 +1,29 @@
+.type-filter {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 1rem;
+  padding-bottom: 5.5rem;
+}
+
+.type-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  img {
+    width: 24px;
+    height: 24px;
+    color: #fff;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

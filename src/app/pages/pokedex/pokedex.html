@@ -9,10 +9,23 @@
 } @else {
   <div class="pokedex-page">
     <div class="pokedex-title">
-      <img src="logo.png" alt="">
+      <img src="logo.png" alt="" />
     </div>
+
+    <!-- <app-type-filter (typeSelected)="onTypeSelected($event)"></app-type-filter> -->
+
     <div class="pokedex-grid">
-      <app-card *ngFor="let pokemon of pokemons" [pokemon]="pokemon"></app-card>
+      <app-card
+        *ngFor="let pokemon of pokemons"
+        [pokemon]="pokemon"
+        (click)="openPokemon(pokemon)"
+      ></app-card>
+
+      <app-modal
+        *ngIf="selectedPokemon"
+        [pokemon]="selectedPokemon"
+        (close)="closeModal()"
+      ></app-modal>
     </div>
   </div>
 }

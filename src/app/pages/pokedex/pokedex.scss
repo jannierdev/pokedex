@@ -1,7 +1,7 @@
 .pokedex-page {
   min-height: 100vh;
   width: 100%;
-  padding: 2rem;
+  // padding: 2rem;
   max-width: 1200px;
   margin: auto;
   // background: rgba(255,255,255,.6);
@@ -16,7 +16,6 @@
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    padding-bottom: 6rem;
 
     img {
       width: 300px;
@@ -31,6 +30,8 @@
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 
     gap: 2rem;
+    justify-items: center;
+    align-items: center;
   }
 }
 

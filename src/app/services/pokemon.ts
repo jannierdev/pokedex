@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, map, Observable, switchMap } from 'rxjs';
 import { Pokemon } from '../models/pokemon.model';
+import { PokemonType } from '../models/pokemon-type.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
-  private apiUrl = 'https://pokeapi.co/api/v2/pokemon';
+  private apiUrl = 'https://pokeapi.co/api/v2/';
 
   COLOR_MAP: Record<string, string> = {
     red: '#f87171',
@@ -47,7 +48,7 @@ export class PokemonService {
 
   getPokemons(limit = 20, offset = 0): Observable<Pokemon[]> {
     return this.http
-      .get<any>(`${this.apiUrl}?limit=${limit}&offset=${offset}`)
+      .get<any>(`${this.apiUrl}pokemon?limit=${limit}&offset=${offset}`)
       .pipe(
         switchMap((res) =>
           forkJoin<Pokemon[]>(
@@ -55,20 +56,41 @@ export class PokemonService {
               this.http.get<any>(p.url).pipe(
                 switchMap((detail) =>
                   this.http.get<any>(detail.species.url).pipe(
-                    map((species) => {
-                      const baseColor =
-                        this.COLOR_MAP[species.color.name] ?? '#e5e7eb';
+                    switchMap((species) =>
+                      forkJoin(
+                        this.getTypeDetails(detail.types),
+                      ).pipe(
+                        map(([typeDetails]) => {
+                          const baseColor =
+                            this.COLOR_MAP[species.color.name] ?? '#e5e7eb';
+                          const description = species.flavor_text_entries
+                            ?.find((entry: any) => entry.language.name === 'en')
+                            ?.flavor_text?.replace(/\n/g, ' ') || 'No description available';
 
-                      return {
-                        name: detail.name,
-                        image: detail.sprites.other.dream_world.front_default,
-                        color: baseColor,
-                        abilities: detail.abilities.map((a: any) => ({
-                          name: a.ability.name,
-                          color: baseColor,
-                        })),
-                      } as Pokemon;
-                    }),
+                          return {
+                            name: detail.name,
+                            image: detail.sprites.other.dream_world.front_default,
+                            color: baseColor,
+                            description: description,
+                            types: detail.types.map((t: any) => ({
+                              name: t.type.name,
+                              color: this.TYPE_COLORS[t.type.name] || '#999',
+                            })),
+                            abilities: detail.abilities.map((a: any) => ({
+                              name: a.ability.name,
+                              color: baseColor,
+                            })),
+                            stats: detail.stats.map((s: any) => ({
+                              name: s.stat.name,
+                              baseStat: s.base_stat,
+                              effort: s.effort,
+                            })),
+                            resistances: typeDetails.resistances,
+                            weaknesses: typeDetails.weaknesses,
+                          } as Pokemon;
+                        }),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -76,5 +98,59 @@ export class PokemonService {
           ),
         ),
       );
+  }
+
+  private getTypeDetails(types: any[]) {
+    const typeUrls = types.map((t) => t.type.url);
+    return forkJoin(
+      typeUrls.map((url) =>
+        this.http.get<any>(url).pipe(
+          map((type) => ({
+            resistances: type.damage_relations.half_damage_to.map(
+              (t: any) => ({
+                name: t.name,
+                color: this.TYPE_COLORS[t.name] || '#999',
+              }),
+            ),
+            weaknesses: type.damage_relations.double_damage_from.map(
+              (t: any) => ({
+                name: t.name,
+                color: this.TYPE_COLORS[t.name] || '#999',
+              }),
+            ),
+          })),
+        ),
+      ),
+    ).pipe(
+      map((details) => {
+        // Combinar resistencias y debilidades de todos los tipos
+        const resistances = [
+          ...new Map(
+            details
+              .flatMap((d) => d.resistances)
+              .map((r) => [r.name, r]),
+          ).values(),
+        ];
+        const weaknesses = [
+          ...new Map(
+            details
+              .flatMap((d) => d.weaknesses)
+              .map((w) => [w.name, w]),
+          ).values(),
+        ];
+        return {
+          resistances: resistances.slice(0, 4),
+          weaknesses: weaknesses.slice(0, 4),
+        };
+      }),
+    );
+  }
+
+  getTypes(): Observable<PokemonType[]> {
+    return this.http.get<any>(`${this.apiUrl}/type`).pipe(
+      map((res) =>
+        res.results.map((t: any) => t.name as PokemonType),
+      ),
+    );
   }
 }

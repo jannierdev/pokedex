@@ -1,0 +1,9 @@
+<div class="type-filter">
+  <button
+    *ngFor="let type of types"
+    class="type-btn"
+    [style.background]="type.color"
+  >
+    <img [src]="type.icon" alt="">
+  </button>
+</div>
